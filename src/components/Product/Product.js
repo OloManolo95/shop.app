@@ -19,11 +19,25 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
   }
 
   const getPrice = () => {
-    console.log(sizes);
+    //take element from sizes array, check if it matches currentSize value and take additionalPrice value from it
     const addPrice = sizes.find(element => element.name === currentSize).additionalPrice
-    console.log(addPrice);
     return basePrice + addPrice
 
+  };
+
+  const addToCart = e => {
+    e.preventDefault();
+
+    const cartSummary = `
+      Summary
+      =============
+      Name: ${ title }
+      Price: ${ getPrice() }
+      Size: ${ currentSize }
+      Color: ${ currentColor }
+    `;
+
+    console.log(cartSummary);
   };
 
 
@@ -40,7 +54,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
           <h2 className={styles.name}>{ title }</h2>
           <span className={styles.price}>{ getPrice() }$</span>
         </header>
-        <form>
+        <form onSubmit={ addToCart }>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
@@ -58,7 +72,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
             </ul>
           </div>
           <Button className={styles.button}>
-            <span className="fa fa-shopping-cart" />
+            <span className="fa fa-shopping-cart"/>
           </Button>
         </form>
       </div>
