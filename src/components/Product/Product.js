@@ -4,6 +4,7 @@ import Button from '../Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from "react";
 import shortid from 'shortid';
+import ProductImage from '../ProductImage/ProductImage';
 
 
 const Product = ({ name, title, colors, sizes, basePrice }) => {
@@ -13,6 +14,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
   const [currentSize, setCurrentSize] = useState(sizes[0].name);
   console.log(sizes);
   console.log(basePrice);
+  console.log(name);
 
   const prepareColorClassName = color => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
@@ -43,12 +45,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
 
   return (
     <article className={styles.product}>
-      <div className={styles.imageContainer}>
-        <img 
-          className={styles.image}
-          alt={ `${ title }`}
-          src={`${process.env.PUBLIC_URL}/images/products/shirt-${ name }--${ currentColor }.jpg`} />
-      </div>
+      <ProductImage name={ name } title={ title } currentColor={ currentColor } />
       <div>
         <header>
           <h2 className={styles.name}>{ title }</h2>
