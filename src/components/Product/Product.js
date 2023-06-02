@@ -1,10 +1,8 @@
 import styles from './Product.module.scss';
-import clsx from 'clsx';
-import Button from '../Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from "react";
-import shortid from 'shortid';
 import ProductImage from '../ProductImage/ProductImage';
+import ProductForm from '../ProductForm/ProductForm';
 
 
 const Product = ({ name, title, colors, sizes, basePrice }) => {
@@ -51,27 +49,11 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
           <h2 className={styles.name}>{ title }</h2>
           <span className={styles.price}>{ getPrice() }$</span>
         </header>
-        <form onSubmit={ addToCart }>
-          <div className={styles.sizes}>
-            <h3 className={styles.optionLabel}>Sizes</h3>
-            <ul className={styles.choices}>
-              {sizes.map(size => <li key={shortid()}>
-                <button type="button" className={ currentSize === size.name ?  styles.active : undefined} onClick={ () => setCurrentSize(size.name)}>{ size.name }</button>
-                </li>)}
-            </ul>
-          </div>
-          <div className={styles.colors}>
-            <h3 className={styles.optionLabel}>Colors</h3>
-            <ul className={styles.choices}>
-              {colors.map(color => <li key={color}>
-                <button type="button" className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} onClick={ () => setCurrentColor(color)}/>
-              </li>)}
-            </ul>
-          </div>
-          <Button className={styles.button}>
-            <span className="fa fa-shopping-cart"/>
-          </Button>
-        </form>
+        <ProductForm addToCart={ addToCart } sizes={ sizes }
+                     currentSize={ currentSize } setCurrentSize={ setCurrentSize }
+                     colors={ colors } prepareColorClassName={ prepareColorClassName}
+                     currentColor={ currentColor } setCurrentColor={ setCurrentColor }
+        />
       </div>
     </article>
   )
