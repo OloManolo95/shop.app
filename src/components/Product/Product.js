@@ -1,6 +1,6 @@
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ProductImage from '../ProductImage/ProductImage';
 import ProductForm from '../ProductForm/ProductForm';
 
@@ -14,16 +14,12 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
   console.log(basePrice);
   console.log(name);
 
-  const prepareColorClassName = color => {
-    return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
-  }
+  const getPrice = useMemo(() => {
+    const addPrice = sizes.find(element => element.name === currentSize).additionalPrice;
+    return basePrice + addPrice;
+  }, [currentSize, sizes, basePrice]);
 
-  const getPrice = () => {
-    //take element from sizes array, check if it matches currentSize value and take additionalPrice value from it
-    const addPrice = sizes.find(element => element.name === currentSize).additionalPrice
-    return basePrice + addPrice
 
-  };
 
   const addToCart = e => {
     e.preventDefault();
@@ -32,7 +28,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
       Summary
       =============
       Name: ${ title }
-      Price: ${ getPrice() }
+      Price: ${ getPrice }
       Size: ${ currentSize }
       Color: ${ currentColor }
     `;
@@ -47,11 +43,11 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
       <div>
         <header>
           <h2 className={styles.name}>{ title }</h2>
-          <span className={styles.price}>{ getPrice() }$</span>
+          <span className={styles.price}>{ getPrice }$</span>
         </header>
         <ProductForm addToCart={ addToCart } sizes={ sizes }
                      currentSize={ currentSize } setCurrentSize={ setCurrentSize }
-                     colors={ colors } prepareColorClassName={ prepareColorClassName}
+                     colors={ colors }
                      currentColor={ currentColor } setCurrentColor={ setCurrentColor }
         />
       </div>

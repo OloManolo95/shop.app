@@ -13,7 +13,7 @@ const ProductForm = ({addToCart, sizes,
         <form onSubmit={ addToCart }>
         <OptionSize sizes= { sizes } currentSize= { currentSize } setCurrentSize={ setCurrentSize }
         />
-        <OptionColor colors={ colors } prepareColorClassName={ prepareColorClassName }
+        <OptionColor colors={ colors }
             currentColor={ currentColor } setCurrentColor={ setCurrentColor }
         />
         <Button className={styles.button}>
@@ -30,7 +30,6 @@ ProductForm.propTypes = {
     currentSize: PropTypes.string.isRequired,
     setCurrentSize: PropTypes.func.isRequired,
     colors: PropTypes.array.isRequired,
-    prepareColorClassName: PropTypes.func.isRequired,
     currentColor: PropTypes.string.isRequired,
     setCurrentColor: PropTypes.func.isRequired
 };

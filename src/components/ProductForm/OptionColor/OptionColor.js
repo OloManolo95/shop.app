@@ -25,7 +25,6 @@ const OptionColor = ({ colors, currentColor, setCurrentColor}) => {
 
 OptionColor.propTypes = {
     colors: Proptypes.array.isRequired,
-    prepareColorClassName: Proptypes.func.isRequired,
     currentColor: Proptypes.string.isRequired,
     setCurrentColor: Proptypes.func.isRequired
 }
